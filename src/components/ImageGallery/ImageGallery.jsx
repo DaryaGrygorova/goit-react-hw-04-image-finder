@@ -11,16 +11,17 @@ import React, { useEffect, useState } from 'react';
 
 const ImageGallery = ({ searchQuery }) => {
   const [page, setPage] = useState(1);
-  const [per_page, setPer_page] = useState(12);
   const [images, setImages] = useState([]);
   const [totalHits, setTotalHits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isEndOfList, setIsEndOfList] = useState(true);
+  const per_page = 12;
+
   // !!images?.length && per_page * page < totalHits; // перевірка, чи є на сервері ще не завантажені зображення
 
   useEffect(() => {
     page !== 1 && setPage(1);
-  }, [searchQuery]);
+  }, [searchQuery, page]);
 
   useEffect(() => {
     const getImages = async () => {
