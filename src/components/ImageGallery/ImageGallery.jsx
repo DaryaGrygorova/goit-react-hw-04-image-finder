@@ -62,7 +62,7 @@ const ImageGallery = ({ searchQuery }) => {
 
   const softScroll = () => {
     window.scrollBy({
-      top: 828,
+      top: 552,
       behavior: 'smooth',
     });
   };
