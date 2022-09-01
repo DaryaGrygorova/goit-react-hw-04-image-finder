@@ -20,8 +20,8 @@ const ImageGallery = ({ searchQuery }) => {
   // !!images?.length && per_page * page < totalHits; // перевірка, чи є на сервері ще не завантажені зображення
 
   useEffect(() => {
-    page !== 1 && setPage(1);
-  }, [searchQuery, page]);
+    setPage(1);
+  }, [searchQuery]);
 
   useEffect(() => {
     const getImages = async () => {
