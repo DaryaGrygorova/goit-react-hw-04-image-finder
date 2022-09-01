@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
-
 import { BsSearch } from 'react-icons/bs';
+
 import { Formik } from 'formik';
 
 import {

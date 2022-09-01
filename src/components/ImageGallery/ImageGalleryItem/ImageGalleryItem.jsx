@@ -1,47 +1,36 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'components/Modal/index.js';
 
 import { GalleryItem, ItemImage } from './ImageGalleryItem.styled.js';
 
-class ImageGalleryItem extends Component {
-  static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      tags: PropTypes.string.isRequired,
-      largeImageURL: PropTypes.string.isRequired,
-      webformatURL: PropTypes.string.isRequired,
-    }).isRequired,
-  }.isRequired;
+const ImageGalleryItem = ({ item: { webformatURL, tags, largeImageURL } }) => {
+  const [selectedImgURL, setSelectedImgURL] = useState('');
 
-  state = {
-    isSelected: '',
+  const isSelectedToggle = () => {
+    setSelectedImgURL(state => !state);
   };
 
-  isSelectedToggle = () => {
-    this.setState(({ isSelected }) => ({ isSelected: !isSelected }));
-  };
+  return (
+    <GalleryItem>
+      <ItemImage src={webformatURL} alt={tags} onClick={isSelectedToggle} />
+      {!!selectedImgURL && (
+        <Modal onClose={isSelectedToggle}>
+          <img src={largeImageURL} alt={tags} />
+        </Modal>
+      )}
+    </GalleryItem>
+  );
+};
 
-  render() {
-    const { isSelected } = this.state;
-    const { item } = this.props;
-
-    return (
-      <GalleryItem>
-        <ItemImage
-          src={item.webformatURL}
-          alt={item.tags}
-          onClick={this.isSelectedToggle}
-        />
-        {isSelected && (
-          <Modal onClose={this.isSelectedToggle}>
-            <img src={item.largeImageURL} alt={item.tags} />
-          </Modal>
-        )}
-      </GalleryItem>
-    );
-  }
-}
+ImageGalleryItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+  }).isRequired,
+}.isRequired;
 
 export default ImageGalleryItem;
